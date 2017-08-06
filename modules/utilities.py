@@ -6,15 +6,13 @@ from django.http import HttpResponse
 from rest_framework.exceptions import ParseError
 
 
-def get_response(data, status_code=200, message="", status=1, content_type="application/json", headers=None):
+def get_response(data, status_code=200, message="", status=1, content_type="application/json", headers={}):
     response = HttpResponse(json.dumps({
         "status": status,
         "message": message,
-        "data": data
+        "data": data,
+        "link": headers.get("Link"),
     }), content_type=content_type, status=status_code)
-    # if headers:
-    #     for key, value in headers.iteritems():
-    #         response[key] = value
     return response
 
 
@@ -62,7 +60,7 @@ def create_q(name, name_in, repo_number, repo_sign, location, language, follower
 
 
 def create_query_param(name, name_in, repo_number, repo_sign, location, language, followers, followers_sign,
-                       created_date, created_date_sign, sort, order):
+                       created_date, created_date_sign, sort, order, page):
     q = create_q(name, name_in, repo_number, repo_sign, location, language, followers, followers_sign,
                  created_date, created_date_sign)
     params = {
@@ -71,20 +69,20 @@ def create_query_param(name, name_in, repo_number, repo_sign, location, language
     if sort and order:
         params["sort"] = sort
         params["order"] = order
+    if page:
+        params["page"] = page
     return params
 
 
 def get_github_data(name, name_in, repo_number, repo_sign, location, language, followers, followers_sign,
-                    created_date, created_date_sign, sort, order):
+                    created_date, created_date_sign, sort, order, page):
     url = settings.GITHUB_USER_SEARCH_URL
     get_params = create_query_param(name, name_in, repo_number, repo_sign, location, language, followers,
-                                    followers_sign, created_date, created_date_sign, sort, order)
+                                    followers_sign, created_date, created_date_sign, sort, order, page)
     headers = {
         "Accept": "application/vnd.github.v3.raw+json"
     }
     github_response = requests.get(url, get_params, headers=headers)
-
     if github_response.status_code == 200:
         return github_response.json(), github_response.headers
-    print github_response.text
     raise ParseError

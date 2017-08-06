@@ -1,9 +1,8 @@
-import json
 import logging
-from django.http import HttpResponse
 from rest_framework.decorators import api_view
 
 from modules.utilities import get_github_data, get_response
+from modules.data import insert_data_to_db
 
 
 @api_view(['GET'])
@@ -21,13 +20,12 @@ def user_handler(request):
         created_date_sign = request.GET.get("created_date_sign")  # possible values: <=, <, >, >=, =, None
         sort = request.GET.get("sort")
         order = request.GET.get("order")
+        page = request.GET.get("page")      # for proxy paginations
 
         github_data, response_headers = get_github_data(name, name_in, repo_number, repo_sign, location, language,
                                                         followers, followers_sign, created_date, created_date_sign,
-                                                        sort, order)
+                                                        sort, order, page)
+        insert_data_to_db(github_data)
         return get_response(github_data, headers=response_headers)
     except Exception as e:
-        import traceback
-        traceback.print_exc()
-        # logging.error(e)
         return get_response(None, message="Exception: {e}".format(e=e), status_code=500)
