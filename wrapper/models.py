@@ -22,7 +22,7 @@ class GithubUser(models.Model):
     events_url = models.TextField(blank=True, null=True)  # don't know max length
     received_events_url = models.TextField(blank=True, null=True)  # don't know max length
     type = models.CharField(blank=True, null=True, max_length=20)
-    site_admin = models.BooleanField(blank=True, null=True, default=False)
+    site_admin = models.BooleanField(blank=True, default=False)
     score = models.FloatField(blank=True, null=False)
 
     # Trackers
