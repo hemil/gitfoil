@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-GITHUB_USER_SEARCH_URL = "https://api.github.com/search/users/"
+GITHUB_USER_SEARCH_URL = "https://api.github.com/search/users"
 
 # Application definition
 
