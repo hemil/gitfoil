@@ -68,13 +68,7 @@ class GithubUserAdmin(admin.ModelAdmin):
         'get_users_monthly'
     )
     model_fields = [f.name for f in GithubUser._meta.get_fields()]  # we can hardcode this as required.
-    model_fields.extend(['admin_thumbnail',
-                         'get_api_calls_daily',
-                         'get_api_calls_weekly',
-                         'get_api_calls_monthly',
-                         'get_users_daily',
-                         'get_users_weekly',
-                         'get_users_monthly'])
+    model_fields.append('admin_thumbnail')
     model_fields.remove('active')
     readonly_fields = model_fields
 
