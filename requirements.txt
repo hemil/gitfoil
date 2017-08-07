@@ -9,3 +9,4 @@ requests==2.18.3
 urllib3==1.22
 wheel==0.24.0
 whitenoise==3.3.0
+gunicorn==19.7.1
