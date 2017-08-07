@@ -8,7 +8,7 @@ from wrapper.serializers import GithubUserSerializer
 
 def insert_data_to_db(json_user_data):
     user_data = json_user_data.get("items", [])
-    insertion_time = datetime.utcnow()
+    insertion_time = str(datetime.utcnow())
     with transaction.atomic():
         # assuming atomicity is needed. can be removed if not.
         for each_user_data in user_data:

@@ -55,7 +55,7 @@ def create_q(name, name_in, repo_number, repo_sign, location, language, follower
             # add >,<,= and their combinations
             q += "{created_date_sign}".format(created_date_sign=created_date_sign)
         q += "{created_date}".format(created_date=created_date)
-    print q
+    
     return q
 
 
