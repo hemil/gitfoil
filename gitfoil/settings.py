@@ -75,13 +75,26 @@ WSGI_APPLICATION = 'gitfoil.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': os.environ['DB_NAME'],
+#         'USER': os.environ['DB_USER'],
+#         'PASSWORD': os.environ['DB_PASSWORD'],
+#         'HOST': os.environ['DB_HOST'],
+#         'PORT': '',
+#         'CONN_MAX_AGE': 60
+#     }
+# }mysql://bfd926b5f63b1c:39787813@us-cdbr-iron-east-05.cleardb.net/heroku_585baef36bd74a3?reconnect=true
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'gitfoil',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': '',
+        'NAME': 'heroku_585baef36bd74a3',
+        'USER': 'bfd926b5f63b1c',
+        'PASSWORD': '39787813',
+        'HOST': 'us-cdbr-iron-east-05.cleardb.net',
         'PORT': '',
         'CONN_MAX_AGE': 60
     }
