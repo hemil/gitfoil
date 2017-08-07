@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from datetime import datetime, timedelta
+from datetime import timedelta
 
+from django.db.models import Count
 from django.utils import timezone
 from django.contrib import admin
 from .models import GithubUser
@@ -36,7 +37,7 @@ class GithubUserAdmin(admin.ModelAdmin):
 
     def get_api_calls(self, time_period_days):
         time_delta = timezone.now() - timedelta(days=time_period_days)
-        num_api_calls = GithubUser.objects.filter(api_call_at__gte=time_delta).count()
+        num_api_calls = GithubUser.objects.filter(api_call_at__gte=time_delta).values("api_call_at").distinct().count()
         return num_api_calls
 
     def get_users_added(self, time_period_days):
